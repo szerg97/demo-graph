@@ -1,5 +1,6 @@
 package com.szalai.demograph;
 
+import com.szalai.demograph.model.Acquaintance;
 import com.szalai.demograph.model.Movie;
 import com.szalai.demograph.model.Person;
 import com.szalai.demograph.model.Roles;
@@ -36,6 +37,10 @@ public class DemoGraphApplication {
             Person jackson = createPerson("Samuel L Jackson",1963);
             Person ford = createPerson("Harrison Ford",1961);
 
+            getToKnowEachOther(george, ewan, 1997);
+            getToKnowEachOther(george, jackson, 1998);
+            getToKnowEachOther(jackson, ewan, 1999);
+
             Movie starWars = createMovie(
                     "Star Wars III.",
                     "Description of SW III.",
@@ -56,6 +61,11 @@ public class DemoGraphApplication {
         else{
             log.info("Database already seeded, continuing without inserting new records...");
         }
+    }
+
+    private void getToKnowEachOther(Person p1, Person p2, Integer since) {
+        p1.addAcquaintance(new Acquaintance(p2, since));
+        p2.addAcquaintance(new Acquaintance(p1, since));
     }
 
     private Person createPerson(String name, Integer born){
